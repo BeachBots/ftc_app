@@ -27,10 +27,26 @@ public class testOPmode extends LinearOpMode
 
         while (opModeIsActive())
         {
+
             motorFrontRight.setPower(-gamepad1.right_stick_y);
             motorFrontLeft.setPower(-gamepad1.right_stick_y);
             motorBackRight.setPower(-gamepad1.left_stick_y);
             motorBackLeft.setPower(-gamepad1.left_stick_y);
+
+            while (gamepad1.dpad_right == true)
+            {
+                motorFrontRight.setPower(-1);
+                motorBackRight.setPower(1);
+                motorFrontLeft.setPower(1);
+                motorBackLeft.setPower(-1);
+            }
+            while (gamepad1.dpad_left == true)
+            {
+                motorFrontRight.setPower(1);
+                motorBackRight.setPower(-1);
+                motorFrontLeft.setPower(-1);
+                motorBackLeft.setPower(1);
+            }
             idle();
         }
     }
