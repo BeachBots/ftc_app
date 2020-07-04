@@ -20,7 +20,7 @@ public class testOPmode extends LinearOpMode
         motorBackRight = hardwareMap.dcMotor.get("motorBackRight");
         motorBackLeft = hardwareMap.dcMotor.get("motorBackLeft");
 
-        motorFrontRight.setDirection(DcMotor.Direction.REVERSE);
+        motorBackLeft.setDirection(DcMotor.Direction.REVERSE);
         motorFrontLeft.setDirection(DcMotor.Direction.REVERSE);
         waitForStart();
         waitForStart();
@@ -47,6 +47,7 @@ public class testOPmode extends LinearOpMode
                 motorFrontLeft.setPower(-1);
                 motorBackLeft.setPower(1);
                 //hello world
+
             }
             idle();
         }
