@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@TeleOp(name = "testOPmode")
-public class testOPmode extends LinearOpMode
+@TeleOp(name = "TestOP2")
+public class TestOP2 extends LinearOpMode
 {
     private DcMotor motorFrontRight;
     private DcMotor motorFrontLeft;
@@ -65,10 +65,10 @@ public class testOPmode extends LinearOpMode
         motorBackLeft.setDirection(DcMotor.Direction.REVERSE);
         motorFrontLeft.setDirection(DcMotor.Direction.REVERSE);
 
-        //motorFrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //motorFrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //motorBackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //motorBackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorFrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorFrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorBackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorBackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         waitForStart();
         waitForStart();
@@ -76,12 +76,12 @@ public class testOPmode extends LinearOpMode
         while (opModeIsActive())
         {
 
-
+            /*
             motorFrontRight.setPower(-gamepad1.right_stick_y);
             motorFrontLeft.setPower(-gamepad1.right_stick_y);
             motorBackRight.setPower(-gamepad1.left_stick_y);
             motorBackLeft.setPower(-gamepad1.left_stick_y);
-
+            */
 
             while (gamepad1.a == true)
             {
@@ -89,7 +89,7 @@ public class testOPmode extends LinearOpMode
                 //the "distance" part in "driveForwardDistance" is the ticks per revolution
 
             }
-
+            /*
             while (gamepad1.dpad_right == true)
             {
                 motorFrontRight.setPower(-1);
@@ -103,6 +103,8 @@ public class testOPmode extends LinearOpMode
                 motorBackRight.setPower(-1);
                 motorFrontLeft.setPower(-1);
                 motorBackLeft.setPower(1);
+
+             */
 
 
             }
