@@ -65,10 +65,10 @@ public class firstOPmode extends LinearOpMode
         motorBackLeft.setDirection(DcMotor.Direction.REVERSE);
         motorFrontLeft.setDirection(DcMotor.Direction.REVERSE);
 
-        //motorFrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //motorFrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //motorBackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //motorBackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorFrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorFrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorBackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorBackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         waitForStart();
         waitForStart();
@@ -76,6 +76,10 @@ public class firstOPmode extends LinearOpMode
         while (opModeIsActive())
         {
 
+            while (gamepad1.a) {
+                driveForwardDistance(1,100);
+
+            }
 
             motorFrontRight.setPower(-gamepad1.left_stick_y);
             motorBackRight.setPower(-gamepad1.left_stick_y);
