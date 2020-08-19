@@ -65,10 +65,10 @@ public class testOPmode extends LinearOpMode
         motorBackLeft.setDirection(DcMotor.Direction.REVERSE);
         motorFrontLeft.setDirection(DcMotor.Direction.REVERSE);
 
-        //motorFrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //motorFrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //motorBackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //motorBackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorFrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorFrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorBackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorBackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         waitForStart();
         waitForStart();
