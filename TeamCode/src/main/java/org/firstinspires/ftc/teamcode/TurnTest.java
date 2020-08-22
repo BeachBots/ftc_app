@@ -6,23 +6,24 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@TeleOp(name = "TestOP2")
-public class TestOP2 extends LinearOpMode {
+@TeleOp(name = "TurnTest")
+public class TurnTest extends LinearOpMode
+{
     private DcMotor motorFrontRight;
     private DcMotor motorFrontLeft;
     private DcMotor motorBackRight;
     private DcMotor motorBackLeft;
 
-    public void driveForwardDistance(double power, int distance) {
+    public void driveForwardDistance(double power, int distance){
 
         motorFrontRight.setMode(DcMotor.RunMode.RESET_ENCODERS);
         motorFrontLeft.setMode(DcMotor.RunMode.RESET_ENCODERS);
         motorBackRight.setMode(DcMotor.RunMode.RESET_ENCODERS);
         motorBackLeft.setMode(DcMotor.RunMode.RESET_ENCODERS);
 
-        motorFrontRight.setTargetPosition(distance);
+        motorFrontRight.setTargetPosition(-distance);
         motorFrontLeft.setTargetPosition(distance);
-        motorBackRight.setTargetPosition(distance);
+        motorBackRight.setTargetPosition(-distance);
         motorBackLeft.setTargetPosition(distance);
 
         motorFrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -35,7 +36,7 @@ public class TestOP2 extends LinearOpMode {
         motorBackRight.setPower(power);
         motorBackLeft.setPower(power);
 
-        while (motorFrontRight.isBusy() && motorFrontLeft.isBusy() && motorBackRight.isBusy() && motorBackLeft.isBusy()) {
+        while (motorFrontRight.isBusy() && motorFrontLeft.isBusy() && motorBackRight.isBusy() && motorBackLeft.isBusy()){
 
         }
 
@@ -53,9 +54,9 @@ public class TestOP2 extends LinearOpMode {
 
 
 
-
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void runOpMode() throws InterruptedException
+    {
         motorFrontRight = hardwareMap.dcMotor.get("motorFrontRight");
         motorFrontLeft = hardwareMap.dcMotor.get("motorFrontLeft");
         motorBackRight = hardwareMap.dcMotor.get("motorBackRight");
@@ -72,32 +73,36 @@ public class TestOP2 extends LinearOpMode {
         waitForStart();
         waitForStart();
 
-        while (opModeIsActive()) {
+        while (opModeIsActive())
+        {
 
 
-            motorFrontRight.setPower(-gamepad1.left_stick_y/2);
-            motorBackRight.setPower(-gamepad1.left_stick_y/2);
-            motorFrontLeft.setPower(-gamepad1.right_stick_y/2);
-            motorBackLeft.setPower(-gamepad1.right_stick_y/2);
+            motorFrontRight.setPower(-gamepad1.right_stick_y);
+            motorFrontLeft.setPower(-gamepad1.right_stick_y);
+            motorBackRight.setPower(-gamepad1.left_stick_y);
+            motorBackLeft.setPower(-gamepad1.left_stick_y);
 
 
-            while (gamepad1.a == true) {
-                driveForwardDistance(1, 538);
+            while (gamepad1.b == true)
+            {
+                driveForwardDistance(1,3600);
                 //the "distance" part in "driveForwardDistance" is the ticks per revolution
 
             }
 
-            while (gamepad1.y == true) {
-                motorFrontRight.setPower(-0.5);
-                motorBackRight.setPower(0.5);
-                motorFrontLeft.setPower(0.5);
-                motorBackLeft.setPower(-0.5);
+            while (gamepad1.dpad_right == true)
+            {
+                motorFrontRight.setPower(-1);
+                motorBackRight.setPower(1);
+                motorFrontLeft.setPower(1);
+                motorBackLeft.setPower(-1);
             }
-            while (gamepad1.x == true)
-                motorFrontRight.setPower(0.5);
-                motorBackRight.setPower(-0.5);
-                motorFrontLeft.setPower(-0.5);
-                motorBackLeft.setPower(0.5);
+            while (gamepad1.dpad_left == true)
+            {
+                motorFrontRight.setPower(1);
+                motorBackRight.setPower(-1);
+                motorFrontLeft.setPower(-1);
+                motorBackLeft.setPower(1);
 
 
             }
@@ -106,3 +111,4 @@ public class TestOP2 extends LinearOpMode {
     }
 
 
+}

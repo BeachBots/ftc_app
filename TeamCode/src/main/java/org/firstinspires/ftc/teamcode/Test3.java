@@ -1,18 +1,28 @@
 package org.firstinspires.ftc.teamcode;
 
+import  com.qualcomm.hardware.bosch.BNO055IMU;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@TeleOp(name = "testOPmode")
-public class firstOPmode extends LinearOpMode
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.robotcore.external.navigation.Position;
+import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
+
+@TeleOp(name = "Test3")
+public class Test3 extends LinearOpMode
 {
     private DcMotor motorFrontRight;
     private DcMotor motorFrontLeft;
     private DcMotor motorBackRight;
     private DcMotor motorBackLeft;
+    private BNO055IMU imu;
 
     public void driveForwardDistance(double power, int distance){
 
@@ -52,28 +62,20 @@ public class firstOPmode extends LinearOpMode
 
     }
 
-    public void turn(double power, double angle, double prevAngle){
+    public void turn(double power, double angle){
 
-        boolean left;
-
-        if (angle > 180){
-            left = true;
-
-        } else {
-            left = false;
-        }
 
         motorFrontRight.setMode(DcMotor.RunMode.RESET_ENCODERS);
         motorFrontLeft.setMode(DcMotor.RunMode.RESET_ENCODERS);
         motorBackRight.setMode(DcMotor.RunMode.RESET_ENCODERS);
         motorBackLeft.setMode(DcMotor.RunMode.RESET_ENCODERS);
 
-        if (left == true) {
-            motorFrontRight.setTargetPosition((int)((-((3600/360) * angle))- prevAngle));
-            motorBackRight.setTargetPosition((int)((-((3600/360) * angle))- prevAngle));
-            motorFrontLeft.setTargetPosition((int)((((3600/360) * angle))- prevAngle));
-            motorBackLeft.setTargetPosition((int)((((3600/360) * angle))- prevAngle));
-        }
+
+            motorFrontRight.setTargetPosition((int)((((3600/360) * angle))));
+            motorBackRight.setTargetPosition((int)((((3600/360) * angle))));
+            motorFrontLeft.setTargetPosition((int)((-((3600/360) * angle))));
+            motorBackLeft.setTargetPosition((int)((-((3600/360) * angle))));
+
         motorFrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorFrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorBackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -118,6 +120,24 @@ public class firstOPmode extends LinearOpMode
         motorBackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorBackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+
+        parameters.mode = BNO055IMU.SensorMode.IMU;
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.loggingEnabled = false;
+
+        imu = hardwareMap.get(BNO055IMU.class, "imu");
+
+        imu.initialize(parameters);
+
+        while (!isStopRequested() && !imu.isGyroCalibrated())
+        {
+            sleep(50);
+            idle();
+
+        }
+
         waitForStart();
         waitForStart();
 
@@ -136,6 +156,8 @@ public class firstOPmode extends LinearOpMode
             motorBackLeft.setPower(-gamepad1.right_stick_y/2);
             */
 
+
+
             motorFrontRight.setPower(-gamepad1.right_trigger/2);
             motorBackRight.setPower(-gamepad1.right_trigger/2);
             motorFrontLeft.setPower(-gamepad1.right_trigger/2);
@@ -149,18 +171,18 @@ public class firstOPmode extends LinearOpMode
             double firstangle = 0;
             boolean first = true;
             while (first == true){
-            while (gamepad1.left_stick_x > 0.2 || gamepad1.left_stick_x < -0.2 || gamepad1.left_stick_y > 0.2 || gamepad1.left_stick_y < -0.2){
-                double theta1 = Math.atan2(gamepad1.left_stick_x, -gamepad1.left_stick_y);
-                double angle1 = Math.toDegrees(theta1);
-                turn(0.5, angle1, 0);
-                first = false;
-                firstangle = angle1;
-            }}
+                while (gamepad1.left_stick_x > 0.2 || gamepad1.left_stick_x < -0.2 || gamepad1.left_stick_y > 0.2 || gamepad1.left_stick_y < -0.2){
+                    double theta1 = Math.atan2(gamepad1.left_stick_x, -gamepad1.left_stick_y);
+                    double angle1 = Math.toDegrees(theta1);
+                    turn(0.5, angle1);
+
+                    firstangle = angle1;
+                }}
 
             while (gamepad1.left_stick_x > 0.2 || gamepad1.left_stick_x < -0.2 || gamepad1.left_stick_y > 0.2 || gamepad1.left_stick_y < -0.2) {
                 double theta2 = Math.atan2(gamepad1.left_stick_x, -gamepad1.left_stick_y);
                 double angle2 = Math.toDegrees(theta2);
-                turn(0.5, angle2, firstangle);
+                turn(0.5, angle2);
             }
 
             while (gamepad1.dpad_right == true)
@@ -180,7 +202,9 @@ public class firstOPmode extends LinearOpMode
 
             }
             idle();
+
         }
+        stop();
     }
 
 
