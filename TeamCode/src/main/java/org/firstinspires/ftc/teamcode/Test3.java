@@ -23,6 +23,8 @@ public class Test3 extends LinearOpMode
     private DcMotor motorBackRight;
     private DcMotor motorBackLeft;
     private BNO055IMU imu;
+    Orientation lastAngles = new Orientation();
+    double globalAngle, power = .30, correction;
 
     public void driveForwardDistance(double power, int distance){
 
@@ -131,6 +133,8 @@ public class Test3 extends LinearOpMode
 
         imu.initialize(parameters);
 
+
+
         while (!isStopRequested() && !imu.isGyroCalibrated())
         {
             sleep(50);
@@ -149,15 +153,15 @@ public class Test3 extends LinearOpMode
 
             }
 
-            /*
-            motorFrontRight.setPower(-gamepad1.left_stick_y/2);
-            motorBackRight.setPower(-gamepad1.left_stick_y/2);
+
+            motorFrontRight.setPower(-gamepad1.right_stick_y/2);
+            motorBackRight.setPower(-gamepad1.right_stick_y/2);
             motorFrontLeft.setPower(-gamepad1.right_stick_y/2);
             motorBackLeft.setPower(-gamepad1.right_stick_y/2);
-            */
 
 
 
+            /*
             motorFrontRight.setPower(-gamepad1.right_trigger/2);
             motorBackRight.setPower(-gamepad1.right_trigger/2);
             motorFrontLeft.setPower(-gamepad1.right_trigger/2);
@@ -167,23 +171,23 @@ public class Test3 extends LinearOpMode
             motorBackRight.setPower(gamepad1.left_trigger/2);
             motorFrontLeft.setPower(gamepad1.left_trigger/2);
             motorBackLeft.setPower(gamepad1.left_trigger/2);
+            */
 
-            double firstangle = 0;
-            boolean first = true;
-            while (first == true){
-                while (gamepad1.left_stick_x > 0.2 || gamepad1.left_stick_x < -0.2 || gamepad1.left_stick_y > 0.2 || gamepad1.left_stick_y < -0.2){
-                    double theta1 = Math.atan2(gamepad1.left_stick_x, -gamepad1.left_stick_y);
-                    double angle1 = Math.toDegrees(theta1);
-                    turn(0.5, angle1);
 
-                    firstangle = angle1;
-                }}
 
-            while (gamepad1.left_stick_x > 0.2 || gamepad1.left_stick_x < -0.2 || gamepad1.left_stick_y > 0.2 || gamepad1.left_stick_y < -0.2) {
-                double theta2 = Math.atan2(gamepad1.left_stick_x, -gamepad1.left_stick_y);
-                double angle2 = Math.toDegrees(theta2);
+
+
+            while (gamepad1.left_stick_x > 0.2 || gamepad1.left_stick_x < -0.2 || gamepad1.left_stick_y > 0.2 || gamepad1.left_stick_y < -0.2){
+                Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                double prevAngle = angles.firstAngle;
+                double theta1 = Math.atan2(gamepad1.left_stick_x, -gamepad1.left_stick_y);
+                double angle1 = Math.toDegrees(theta1);
+                double angle2 = angle1 - prevAngle;
                 turn(0.5, angle2);
+
             }
+
+
 
             while (gamepad1.dpad_right == true)
             {
