@@ -73,10 +73,10 @@ public class Test3 extends LinearOpMode
         motorBackLeft.setMode(DcMotor.RunMode.RESET_ENCODERS);
 
 
-            motorFrontRight.setTargetPosition((int)((((3600/360) * angle))));
-            motorBackRight.setTargetPosition((int)((((3600/360) * angle))));
-            motorFrontLeft.setTargetPosition((int)((-((3600/360) * angle))));
-            motorBackLeft.setTargetPosition((int)((-((3600/360) * angle))));
+            motorFrontRight.setTargetPosition((int)((((3590/360) * angle))));
+            motorBackRight.setTargetPosition((int)((((3590/360) * angle))));
+            motorFrontLeft.setTargetPosition((int)((-((3590/360) * angle))));
+            motorBackLeft.setTargetPosition((int)((-((3590/360) * angle))));
 
         motorFrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorFrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -177,12 +177,17 @@ public class Test3 extends LinearOpMode
 
 
 
-            while (gamepad1.left_stick_x > 0.2 || gamepad1.left_stick_x < -0.2 || gamepad1.left_stick_y > 0.2 || gamepad1.left_stick_y < -0.2){
+            while (gamepad1.left_stick_x > 0.3 || gamepad1.left_stick_x < -0.3 || gamepad1.left_stick_y > 0.3 || gamepad1.left_stick_y < -0.3){
                 Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-                double prevAngle = angles.firstAngle;
+                double prevAngle = -angles.firstAngle;
+
                 double theta1 = Math.atan2(gamepad1.left_stick_x, -gamepad1.left_stick_y);
                 double angle1 = Math.toDegrees(theta1);
                 double angle2 = angle1 - prevAngle;
+                telemetry.addData("prevAngle", prevAngle);
+                telemetry.addData("newAngle", angle1);
+                telemetry.addData("finalAngle", angle2);
+                telemetry.update();
                 turn(0.5, angle2);
 
             }
