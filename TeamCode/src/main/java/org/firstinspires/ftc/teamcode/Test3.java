@@ -73,10 +73,10 @@ public class Test3 extends LinearOpMode
         motorBackLeft.setMode(DcMotor.RunMode.RESET_ENCODERS);
 
 
-            motorFrontRight.setTargetPosition((int)((((3590/360) * angle))));
-            motorBackRight.setTargetPosition((int)((((3590/360) * angle))));
-            motorFrontLeft.setTargetPosition((int)((-((3590/360) * angle))));
-            motorBackLeft.setTargetPosition((int)((-((3590/360) * angle))));
+            motorFrontRight.setTargetPosition((int)((((3600/360) * angle))));
+            motorBackRight.setTargetPosition((int)((((3600/360) * angle))));
+            motorFrontLeft.setTargetPosition((int)((-((3600/360) * angle))));
+            motorBackLeft.setTargetPosition((int)((-((3600/360) * angle))));
 
         motorFrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorFrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -230,18 +230,28 @@ public class Test3 extends LinearOpMode
                 telemetry.update();
 
                 if (Math.abs(angle2) > 180){
+                    double otherAngle = (180 - Math.abs(prevAngle)) + (180 - Math.abs(angle1));
+                    telemetry.addData("otherAngle", otherAngle);
+                    telemetry.update();
                     if (prevAngle > 0) {
-                        if (angle2 < (Math.abs(prevAngle) - 180) + (Math.abs(angle1) - 180)) {
-                            turnRight(0.5, (Math.abs(prevAngle) - 180) + (Math.abs(angle1) - 180));
+                        if (Math.abs(angle2) > otherAngle) {
+                            turn(0.5, otherAngle);
+                        } else {
+                            turn(0.5, angle2);
                         }
 
                     } else if (prevAngle < 0){
-                        if (angle2 < (Math.abs(prevAngle) - 180) + (Math.abs(angle1) - 180)) {
-                            turn(0.5, (Math.abs(prevAngle) - 180) + (Math.abs(angle1) - 180));
+                        if (angle2 > otherAngle) {
+                            turnRight(0.5, otherAngle);
+                        } else {
+                            turn(0.5, angle2);
+
                         }
                     }
+                } else {
+                    turn(0.5, angle2);
+
                 }
-                turn(0.5, angle2);
 
             }
 
