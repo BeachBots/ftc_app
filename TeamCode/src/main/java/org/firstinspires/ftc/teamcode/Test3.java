@@ -104,6 +104,46 @@ public class Test3 extends LinearOpMode
 
     }
 
+    public void turnRight(double power, double angle){
+
+
+        motorFrontRight.setMode(DcMotor.RunMode.RESET_ENCODERS);
+        motorFrontLeft.setMode(DcMotor.RunMode.RESET_ENCODERS);
+        motorBackRight.setMode(DcMotor.RunMode.RESET_ENCODERS);
+        motorBackLeft.setMode(DcMotor.RunMode.RESET_ENCODERS);
+
+
+        motorFrontRight.setTargetPosition((int)((-((3590/360) * angle))));
+        motorBackRight.setTargetPosition((int)((-((3590/360) * angle))));
+        motorFrontLeft.setTargetPosition((int)((((3590/360) * angle))));
+        motorBackLeft.setTargetPosition((int)((((3590/360) * angle))));
+
+        motorFrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorFrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorBackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorBackLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        motorFrontRight.setPower(power);
+        motorFrontLeft.setPower(power);
+        motorBackRight.setPower(power);
+        motorBackLeft.setPower(power);
+
+        while (motorFrontRight.isBusy() && motorFrontLeft.isBusy() && motorBackRight.isBusy() && motorBackLeft.isBusy()){
+
+        }
+
+        motorFrontRight.setPower(0);
+        motorFrontLeft.setPower(0);
+        motorBackRight.setPower(0);
+        motorBackLeft.setPower(0);
+
+        motorFrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorFrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorBackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorBackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+    }
+
 
 
     @Override
@@ -188,6 +228,19 @@ public class Test3 extends LinearOpMode
                 telemetry.addData("newAngle", angle1);
                 telemetry.addData("finalAngle", angle2);
                 telemetry.update();
+
+                if (Math.abs(angle2) > 180){
+                    if (prevAngle > 0) {
+                        if (angle2 < (Math.abs(prevAngle) - 180) + (Math.abs(angle1) - 180)) {
+                            turnRight(0.5, (Math.abs(prevAngle) - 180) + (Math.abs(angle1) - 180));
+                        }
+
+                    } else if (prevAngle < 0){
+                        if (angle2 < (Math.abs(prevAngle) - 180) + (Math.abs(angle1) - 180)) {
+                            turn(0.5, (Math.abs(prevAngle) - 180) + (Math.abs(angle1) - 180));
+                        }
+                    }
+                }
                 turn(0.5, angle2);
 
             }
