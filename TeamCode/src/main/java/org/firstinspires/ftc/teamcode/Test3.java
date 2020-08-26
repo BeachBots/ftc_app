@@ -216,6 +216,7 @@ public class Test3 extends LinearOpMode
 
 
 
+            //Turning function
 
             while (gamepad1.left_stick_x > 0.3 || gamepad1.left_stick_x < -0.3 || gamepad1.left_stick_y > 0.3 || gamepad1.left_stick_y < -0.3){
                 Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
@@ -224,15 +225,15 @@ public class Test3 extends LinearOpMode
                 double theta1 = Math.atan2(gamepad1.left_stick_x, -gamepad1.left_stick_y);
                 double angle1 = Math.toDegrees(theta1);
                 double angle2 = angle1 - prevAngle;
-                telemetry.addData("prevAngle", prevAngle);
-                telemetry.addData("newAngle", angle1);
-                telemetry.addData("finalAngle", angle2);
-                telemetry.update();
+                //telemetry.addData("prevAngle", prevAngle);
+                //telemetry.addData("newAngle", angle1);
+                //telemetry.addData("finalAngle", angle2);
+                //telemetry.update();
 
                 if (Math.abs(angle2) > 180){
                     double otherAngle = (180 - Math.abs(prevAngle)) + (180 - Math.abs(angle1));
-                    telemetry.addData("otherAngle", otherAngle);
-                    telemetry.update();
+                    //telemetry.addData("otherAngle", otherAngle);
+                    //telemetry.update();
                     if (prevAngle > 0) {
                         if (Math.abs(angle2) > otherAngle) {
                             turn(0.5, otherAngle);
@@ -254,6 +255,7 @@ public class Test3 extends LinearOpMode
                 }
 
             }
+
 
 
 
