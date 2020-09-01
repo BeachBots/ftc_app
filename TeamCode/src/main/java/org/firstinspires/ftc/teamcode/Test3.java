@@ -73,10 +73,10 @@ public class Test3 extends LinearOpMode
         motorBackLeft.setMode(DcMotor.RunMode.RESET_ENCODERS);
 
 
-            motorFrontRight.setTargetPosition((int)((((3600/360) * angle))));
-            motorBackRight.setTargetPosition((int)((((3600/360) * angle))));
-            motorFrontLeft.setTargetPosition((int)((-((3600/360) * angle))));
-            motorBackLeft.setTargetPosition((int)((-((3600/360) * angle))));
+        motorFrontRight.setTargetPosition((int)((((3600/360) * angle))));
+        motorBackRight.setTargetPosition((int)((((3600/360) * angle))));
+        motorFrontLeft.setTargetPosition((int)((-((3600/360) * angle))));
+        motorBackLeft.setTargetPosition((int)((-((3600/360) * angle))));
 
         motorFrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorFrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
