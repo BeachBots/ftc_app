@@ -105,35 +105,6 @@ public class AutonTest extends LinearOpMode
 
     }
 
-    public void calibrateAngle(double angle){
-        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        double cAngle = angles.firstAngle;
-        double angle2 = angle - cAngle;
-        if ((angle - cAngle) > 180){
-            double otherAngle = (180 - Math.abs(cAngle)) + (180 - Math.abs(angle));
-            //telemetry.addData("otherAngle", otherAngle);
-            //telemetry.update();
-            if (cAngle > 0) {
-                if (Math.abs(angle2) > otherAngle) {
-                    turn(0.5, otherAngle);
-                } else {
-                    turn(0.5, angle2);
-                }
-
-            } else if (cAngle < 0){
-                if (angle2 > otherAngle) {
-                    turn(0.5, -otherAngle);
-                } else {
-                    turn(0.5, angle2);
-
-                }
-            }
-        } else {
-            turn(0.5, angle2);
-
-        }
-
-    }
 
 
     @Override
@@ -160,8 +131,14 @@ public class AutonTest extends LinearOpMode
 
         imu.initialize(parameters);
 
+        driveForwardDistance(0.5, 2000);
+        sleep(500);
         turn(0.5, 90);
-        calibrateAngle(90);
+        sleep(500);
+        turn(0.5, -90);
+
+
+
 
 
 
