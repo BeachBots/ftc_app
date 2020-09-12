@@ -123,65 +123,40 @@ public class firstOPmode extends LinearOpMode
 
         while (opModeIsActive())
         {
-
-            while (gamepad1.a) {
-                driveForwardDistance(1,538);
-
+            while (gamepad1.left_stick_y > 0.2 || gamepad1.left_stick_y < -0.2) {
+                motorFrontRight.setPower(-gamepad1.left_stick_y / 2);
+                motorBackRight.setPower(-gamepad1.left_stick_y / 2);
+                motorFrontLeft.setPower(-gamepad1.left_stick_y / 2);
+                motorBackLeft.setPower(-gamepad1.left_stick_y / 2);
             }
 
-            /*
-            motorFrontRight.setPower(-gamepad1.left_stick_y/2);
-            motorBackRight.setPower(-gamepad1.left_stick_y/2);
-            motorFrontLeft.setPower(-gamepad1.right_stick_y/2);
-            motorBackLeft.setPower(-gamepad1.right_stick_y/2);
-            */
-
-            motorFrontRight.setPower(-gamepad1.right_trigger/2);
-            motorBackRight.setPower(-gamepad1.right_trigger/2);
-            motorFrontLeft.setPower(-gamepad1.right_trigger/2);
-            motorBackLeft.setPower(-gamepad1.right_trigger/2);
-
-            motorFrontRight.setPower(gamepad1.left_trigger/2);
-            motorBackRight.setPower(gamepad1.left_trigger/2);
-            motorFrontLeft.setPower(gamepad1.left_trigger/2);
-            motorBackLeft.setPower(gamepad1.left_trigger/2);
-
-            double firstangle = 0;
-            boolean first = true;
-            while (first == true){
-            while (gamepad1.left_stick_x > 0.2 || gamepad1.left_stick_x < -0.2 || gamepad1.left_stick_y > 0.2 || gamepad1.left_stick_y < -0.2){
-                double theta1 = Math.atan2(gamepad1.left_stick_x, -gamepad1.left_stick_y);
-                double angle1 = Math.toDegrees(theta1);
-                turn(0.5, angle1, 0);
-                first = false;
-                firstangle = angle1;
-            }}
-
-            while (gamepad1.left_stick_x > 0.2 || gamepad1.left_stick_x < -0.2 || gamepad1.left_stick_y > 0.2 || gamepad1.left_stick_y < -0.2) {
-                double theta2 = Math.atan2(gamepad1.left_stick_x, -gamepad1.left_stick_y);
-                double angle2 = Math.toDegrees(theta2);
-                turn(0.5, angle2, firstangle);
-            }
-
-            while (gamepad1.dpad_right == true)
+            while (gamepad1.left_stick_x > 0.2)
             {
-                motorFrontRight.setPower(-0.5);
-                motorBackRight.setPower(0.5);
-                motorFrontLeft.setPower(0.5);
-                motorBackLeft.setPower(-0.5);
+                motorFrontRight.setPower(gamepad1.left_stick_x / 2);
+                motorBackRight.setPower(-gamepad1.left_stick_x / 2);
+                motorFrontLeft.setPower(-gamepad1.left_stick_x / 2);
+                motorBackLeft.setPower(gamepad1.left_stick_x / 2);
             }
-            while (gamepad1.dpad_left == true)
+            while (gamepad1.left_stick_x < -0.2)
             {
-                motorFrontRight.setPower(0.5);
-                motorBackRight.setPower(-0.5);
-                motorFrontLeft.setPower(-0.5);
-                motorBackLeft.setPower(0.5);
-
+                motorFrontRight.setPower(-gamepad1.left_stick_x / 2);
+                motorBackRight.setPower(gamepad1.left_stick_x / 2);
+                motorFrontLeft.setPower(gamepad1.left_stick_x / 2);
+                motorBackLeft.setPower(-gamepad1.left_stick_x / 2);
 
             }
+            while (gamepad1.right_stick_x > 0.2){
+                motorFrontRight.setPower(-gamepad1.left_stick_x / 2);
+                motorBackRight.setPower(gamepad1.left_stick_x / 2);
+                motorFrontLeft.setPower(-gamepad1.left_stick_x / 2);
+                motorBackLeft.setPower(gamepad1.left_stick_x / 2);
+
+            }
+
+
             idle();
         }
-    }
-
 
 }
+}
+
