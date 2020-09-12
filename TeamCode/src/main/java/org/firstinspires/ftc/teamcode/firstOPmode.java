@@ -7,14 +7,13 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp(name = "testOPmode")
-public class firstOPmode extends LinearOpMode
-{
+public class firstOPmode extends LinearOpMode {
     private DcMotor motorFrontRight;
     private DcMotor motorFrontLeft;
     private DcMotor motorBackRight;
     private DcMotor motorBackLeft;
 
-    public void driveForwardDistance(double power, int distance){
+    public void driveForwardDistance(double power, int distance) {
 
         motorFrontRight.setMode(DcMotor.RunMode.RESET_ENCODERS);
         motorFrontLeft.setMode(DcMotor.RunMode.RESET_ENCODERS);
@@ -36,7 +35,7 @@ public class firstOPmode extends LinearOpMode
         motorBackRight.setPower(power);
         motorBackLeft.setPower(power);
 
-        while (motorFrontRight.isBusy() && motorFrontLeft.isBusy() && motorBackRight.isBusy() && motorBackLeft.isBusy()){
+        while (motorFrontRight.isBusy() && motorFrontLeft.isBusy() && motorBackRight.isBusy() && motorBackLeft.isBusy()) {
 
         }
 
@@ -52,11 +51,11 @@ public class firstOPmode extends LinearOpMode
 
     }
 
-    public void turn(double power, double angle, double prevAngle){
+    public void turn(double power, double angle, double prevAngle) {
 
         boolean left;
 
-        if (angle > 180){
+        if (angle > 180) {
             left = true;
 
         } else {
@@ -69,10 +68,10 @@ public class firstOPmode extends LinearOpMode
         motorBackLeft.setMode(DcMotor.RunMode.RESET_ENCODERS);
 
         if (left == true) {
-            motorFrontRight.setTargetPosition((int)((-((3600/360) * angle))- prevAngle));
-            motorBackRight.setTargetPosition((int)((-((3600/360) * angle))- prevAngle));
-            motorFrontLeft.setTargetPosition((int)((((3600/360) * angle))- prevAngle));
-            motorBackLeft.setTargetPosition((int)((((3600/360) * angle))- prevAngle));
+            motorFrontRight.setTargetPosition((int) ((-((3600 / 360) * angle)) - prevAngle));
+            motorBackRight.setTargetPosition((int) ((-((3600 / 360) * angle)) - prevAngle));
+            motorFrontLeft.setTargetPosition((int) ((((3600 / 360) * angle)) - prevAngle));
+            motorBackLeft.setTargetPosition((int) ((((3600 / 360) * angle)) - prevAngle));
         }
         motorFrontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorFrontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -84,7 +83,7 @@ public class firstOPmode extends LinearOpMode
         motorBackRight.setPower(power);
         motorBackLeft.setPower(power);
 
-        while (motorFrontRight.isBusy() && motorFrontLeft.isBusy() && motorBackRight.isBusy() && motorBackLeft.isBusy()){
+        while (motorFrontRight.isBusy() && motorFrontLeft.isBusy() && motorBackRight.isBusy() && motorBackLeft.isBusy()) {
 
         }
 
@@ -101,10 +100,8 @@ public class firstOPmode extends LinearOpMode
     }
 
 
-
     @Override
-    public void runOpMode() throws InterruptedException
-    {
+    public void runOpMode() throws InterruptedException {
         motorFrontRight = hardwareMap.dcMotor.get("motorFrontRight");
         motorFrontLeft = hardwareMap.dcMotor.get("motorFrontLeft");
         motorBackRight = hardwareMap.dcMotor.get("motorBackRight");
@@ -121,57 +118,20 @@ public class firstOPmode extends LinearOpMode
         waitForStart();
         waitForStart();
 
-        while (opModeIsActive())
-        {
+        while (opModeIsActive()) {
+            motorFrontRight.setPower(-gamepad1.left_stick_y / 2);
+            motorBackRight.setPower(-gamepad1.left_stick_y / 2);
+            motorFrontLeft.setPower(-gamepad1.right_stick_y / 2);
+            motorBackLeft.setPower(-gamepad1.right_stick_y / 2);
 
-            while (gamepad1.a) {
-                driveForwardDistance(1,538);
 
-            }
-
-            /*
-            motorFrontRight.setPower(-gamepad1.left_stick_y/2);
-            motorBackRight.setPower(-gamepad1.left_stick_y/2);
-            motorFrontLeft.setPower(-gamepad1.right_stick_y/2);
-            motorBackLeft.setPower(-gamepad1.right_stick_y/2);
-            */
-
-            motorFrontRight.setPower(-gamepad1.right_trigger/2);
-            motorBackRight.setPower(-gamepad1.right_trigger/2);
-            motorFrontLeft.setPower(-gamepad1.right_trigger/2);
-            motorBackLeft.setPower(-gamepad1.right_trigger/2);
-
-            motorFrontRight.setPower(gamepad1.left_trigger/2);
-            motorBackRight.setPower(gamepad1.left_trigger/2);
-            motorFrontLeft.setPower(gamepad1.left_trigger/2);
-            motorBackLeft.setPower(gamepad1.left_trigger/2);
-
-            double firstangle = 0;
-            boolean first = true;
-            while (first == true){
-            while (gamepad1.left_stick_x > 0.2 || gamepad1.left_stick_x < -0.2 || gamepad1.left_stick_y > 0.2 || gamepad1.left_stick_y < -0.2){
-                double theta1 = Math.atan2(gamepad1.left_stick_x, -gamepad1.left_stick_y);
-                double angle1 = Math.toDegrees(theta1);
-                turn(0.5, angle1, 0);
-                first = false;
-                firstangle = angle1;
-            }}
-
-            while (gamepad1.left_stick_x > 0.2 || gamepad1.left_stick_x < -0.2 || gamepad1.left_stick_y > 0.2 || gamepad1.left_stick_y < -0.2) {
-                double theta2 = Math.atan2(gamepad1.left_stick_x, -gamepad1.left_stick_y);
-                double angle2 = Math.toDegrees(theta2);
-                turn(0.5, angle2, firstangle);
-            }
-
-            while (gamepad1.dpad_right == true)
-            {
+            while (gamepad1.dpad_right == true) {
                 motorFrontRight.setPower(-0.5);
                 motorBackRight.setPower(0.5);
                 motorFrontLeft.setPower(0.5);
                 motorBackLeft.setPower(-0.5);
             }
-            while (gamepad1.dpad_left == true)
-            {
+            while (gamepad1.dpad_left == true) {
                 motorFrontRight.setPower(0.5);
                 motorBackRight.setPower(-0.5);
                 motorFrontLeft.setPower(-0.5);
@@ -182,6 +142,6 @@ public class firstOPmode extends LinearOpMode
             idle();
         }
     }
-
-
 }
+
+
