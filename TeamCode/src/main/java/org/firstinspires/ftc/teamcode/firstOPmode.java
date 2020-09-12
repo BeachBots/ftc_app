@@ -118,7 +118,7 @@ public class firstOPmode extends LinearOpMode {
         waitForStart();
         waitForStart();
 
-<<<<<<< HEAD
+
         while (opModeIsActive())
         {
             while (gamepad1.left_stick_y > 0.2 || gamepad1.left_stick_y < -0.2) {
@@ -141,44 +141,16 @@ public class firstOPmode extends LinearOpMode {
                 motorBackRight.setPower(gamepad1.left_stick_x / 2);
                 motorFrontLeft.setPower(gamepad1.left_stick_x / 2);
                 motorBackLeft.setPower(-gamepad1.left_stick_x / 2);
-=======
-        while (opModeIsActive()) {
-            motorFrontRight.setPower(-gamepad1.left_stick_y / 2);
-            motorBackRight.setPower(-gamepad1.left_stick_y / 2);
-            motorFrontLeft.setPower(-gamepad1.right_stick_y / 2);
-            motorBackLeft.setPower(-gamepad1.right_stick_y / 2);
 
 
-            while (gamepad1.dpad_right == true) {
-                motorFrontRight.setPower(-0.5);
-                motorBackRight.setPower(0.5);
-                motorFrontLeft.setPower(0.5);
-                motorBackLeft.setPower(-0.5);
-            }
-            while (gamepad1.dpad_left == true) {
-                motorFrontRight.setPower(0.5);
-                motorBackRight.setPower(-0.5);
-                motorFrontLeft.setPower(-0.5);
-                motorBackLeft.setPower(0.5);
->>>>>>> e5ef49b7bbb7c6ecf499905551e7fee843913aa7
-
-            }
-            while (gamepad1.right_stick_x > 0.2){
-                motorFrontRight.setPower(-gamepad1.left_stick_x / 2);
-                motorBackRight.setPower(gamepad1.left_stick_x / 2);
-                motorFrontLeft.setPower(-gamepad1.left_stick_x / 2);
-                motorBackLeft.setPower(gamepad1.left_stick_x / 2);
-
-            }
 
 
             idle();
-        }
-<<<<<<< HEAD
-=======
+
+
     }
 }
->>>>>>> e5ef49b7bbb7c6ecf499905551e7fee843913aa7
+
 
 }
 }
