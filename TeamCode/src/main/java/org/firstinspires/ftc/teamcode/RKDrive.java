@@ -12,13 +12,6 @@ public class RKDrive extends LinearOpMode {
     private DcMotor motorFrontLeft;
     private DcMotor motorBackRight;
     private DcMotor motorBackLeft;
-<<<<<<< HEAD
-    
-=======
-
-
-//oogabooga
->>>>>>> f917ffebba41264b9c3a0091d354e192d687cfa8
 
     @Override
     public void runOpMode() throws InterruptedException {
