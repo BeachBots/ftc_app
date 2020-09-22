@@ -12,9 +12,7 @@ public class RKDrive extends LinearOpMode {
     private DcMotor motorFrontLeft;
     private DcMotor motorBackRight;
     private DcMotor motorBackLeft;
-
-
-
+    
 
     @Override
     public void runOpMode() throws InterruptedException {
