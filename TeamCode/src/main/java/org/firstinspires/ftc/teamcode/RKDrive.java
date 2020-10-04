@@ -14,8 +14,6 @@ public class RKDrive extends LinearOpMode {
     private DcMotor motorBackLeft;
 
 
-//oogabooga
-
     @Override
     public void runOpMode() throws InterruptedException {
         motorFrontRight = hardwareMap.dcMotor.get("motorFrontRight");
